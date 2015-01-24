@@ -8,14 +8,22 @@ var montyHall = function (rounds) {
 		return Math.floor(Math.random()*3) + 1;
 	}
 
+	// var revealDoor = function () {
+
+	// }
+
 	for (var i = 0; i < rounds; i++) {
-		//prize is placed
-		//user makes decision
+		
+
+		doors[chooseDoor()] = "prize";
+		player[chooseDoor()] = "choice";
 		//one non-prize door is revealed
-		//user makes choice
+		//user makes choice to stay or switch
 		//game result counted
 	}
 
-
+	console.log(doors);
+	console.log(player);
 
 }
+
