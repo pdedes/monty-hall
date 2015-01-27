@@ -8,9 +8,31 @@ MontyHall.prototype.chooseDoor = function () {
 	return Math.floor(Math.random()*3) + 1;
 }
 
+MontyHall.prototype.switch = function (door, player, reveal) {
+	var original = player;
+
+	do {
+		player = this.chooseDoor();
+	} while (player === reveal || player === original);
+
+	if(player === door){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+MontyHall.prototype.stay = function (door, player) {
+	if(player === door){
+		return true;
+	} else {
+		return false;
+	}
+}
+
 var runSimulation = function (rounds) {
-	var switchWins = undefined;
-	var stayWins = undefined;
+	var stayWins = 0;
+	var switchWins = 0;
 
 	for (var i = 0; i < rounds; i++) {
 		var gameInstance = new MontyHall();
@@ -25,13 +47,14 @@ var runSimulation = function (rounds) {
 		console.log("door value:   " + gameInstance.door);
 		console.log("player value: " + gameInstance.player);
 		console.log("monty reveal: " + gameInstance.reveal);
+		
+		// debugger;
+		if (gameInstance.stay(gameInstance.door, gameInstance.player)) {stayWins++;}
+		if (gameInstance.switch(gameInstance.door, gameInstance.player, gameInstance.reveal)) {switchWins++;}
 		console.log("---");
-		// if (gameInstance.door && gameInstance.player) {
-		// 	console.log("winner!");
-		// }
-			
-		//one non-prize door is revealed
-		//user makes choice to stay or switch
-		//game result counted
+
 	}
+
+	console.log("P(Never Switching)  = " + stayWins/rounds);
+	console.log("P(Always Switching) = " + switchWins/rounds);
 }
